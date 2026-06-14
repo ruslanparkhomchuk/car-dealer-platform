@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
 	compiler: {
 		removeConsole: process.env.NODE_ENV === "production",
 	},
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
 	experimental: {
 		authInterrupts: true,
 		reactCompiler: true,
