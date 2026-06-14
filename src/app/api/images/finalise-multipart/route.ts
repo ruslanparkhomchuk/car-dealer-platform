@@ -4,14 +4,15 @@ import { env } from "@/env";
 import { s3 } from "@/lib/s3";
 import type { CompleteMultipartUploadCommandInput } from "@aws-sdk/client-s3";
 import { forbidden } from "next/navigation";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const POST = auth(async (req) => {
+export const POST = async function (req: NextRequest) {
+	const session = await auth();
+	if (!session) {
+		forbidden();
+	}
+
 	try {
-		if (!req.auth) {
-			forbidden();
-		}
-
 		const data = await req.json();
 
 		const validated = FinaliseMultipartUploadSchema.safeParse(data);
@@ -56,4 +57,4 @@ export const POST = auth(async (req) => {
 
 		return NextResponse.error();
 	}
-});
+};

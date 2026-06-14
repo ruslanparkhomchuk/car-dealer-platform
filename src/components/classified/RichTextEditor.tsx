@@ -45,6 +45,7 @@ export function RichTextEditor(props: TextEditorProps) {
 		autolink_pattern: /^(https?:\/\/|www\.)(.+)$/i,
 
 		// Configure paste behavior
+		// @ts-ignore
 		paste_postprocess: (plugin, args) => {
 			const links = args.node.getElementsByTagName("a");
 			for (let i = 0; i < links.length; i++) {
